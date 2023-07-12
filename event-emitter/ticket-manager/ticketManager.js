@@ -8,7 +8,8 @@ class TicketManager extends EventEmitter {
 
     buy(ticketsCount, email, price) {
         if (this.supply - ticketsCount < 0) {
-            this.emit('message', { message: `Not enough tickets available | Tickets available: ${this.supply}`, email });
+            // this.emit('message', { message: `Not enough tickets available | Tickets available: ${this.supply}`, email });
+            this.emit('error', new Error(`Not enough tickets available | Tickets available: ${this.supply}`));
             return;
         }
 
