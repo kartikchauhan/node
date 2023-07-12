@@ -10,6 +10,10 @@ const ticketManager = new TicketManager(10);
     ticketManager.on('message', function (data) {
         emailService.send(data.email, data.message);
     });
+
+    ticketManager.on('error', function (error) {
+        console.error(error);
+    });
     
     ticketManager.on('buy', function (data) {
         databaseService.save(data.email, data.ticketsCount, data.price, data.timestamp);
@@ -21,5 +25,9 @@ const ticketManager = new TicketManager(10);
     });
 })();
 
+console.table({
+    'Listener': ticketManager.listenerCount('buy'),
+    'message': ticketManager.listenerCount('message')
+});
 
 ticketManager.buy(2, 'chauhan.kartik@gmail.com', 50);
